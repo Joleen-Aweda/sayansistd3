@@ -7,6 +7,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 LANGUAGES = ("sw", "sw-TZ")
+VERSION = json.loads((ROOT / "assets/config.json").read_text(encoding="utf-8"))["bundleVersion"]
 pages = json.loads((ROOT / "content/pages.json").read_text(encoding="utf-8"))
 texts = {lang: json.loads((ROOT / f"content/i18n/{lang}/texts.json").read_text(encoding="utf-8")) for lang in LANGUAGES}
 audios = {lang: json.loads((ROOT / f"content/i18n/{lang}/audios.json").read_text(encoding="utf-8")) for lang in LANGUAGES}
@@ -95,7 +96,7 @@ for entry in pages:
 for lang in LANGUAGES:
     for text_id, value in texts[lang].items():
         if value.strip() and (text_id in seen or text_id.startswith(("gl", "qz"))):
-            audios[lang].setdefault(text_id, f"{text_id}.mp3?v=24")
+            audios[lang].setdefault(text_id, f"{text_id}.mp3?v={VERSION}")
     (ROOT / f"content/i18n/{lang}/texts.json").write_text(json.dumps(texts[lang], ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     (ROOT / f"content/i18n/{lang}/audios.json").write_text(json.dumps(audios[lang], ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 

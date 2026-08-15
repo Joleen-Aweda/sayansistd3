@@ -110,6 +110,49 @@ body, p, h1, h2, h3, h4, h5, h6, span, div, button, input, textarea, select {
   border: 0 !important;
 }
 
+/* Follow read-aloud image descriptions with a clear frame on the visible image. */
+#content img.adt-image-narration-active {
+  outline: 5px solid #2563eb !important;
+  outline-offset: 5px;
+  border-radius: 10px;
+  box-shadow: 0 0 0 3px rgba(147, 197, 253, 0.6),
+    0 0 20px rgba(37, 99, 235, 0.5) !important;
+  transition: outline-color 160ms ease, box-shadow 160ms ease;
+}
+
+@media (max-width: 640px) {
+  #content img.adt-image-narration-active {
+    outline-width: 4px !important;
+    outline-offset: 4px;
+  }
+}
+
+/* Figure 12 uses its connected diagram on wide screens and an ordered,
+   label-first list where the diagram would otherwise become cramped. */
+.figure12-responsive {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .figure12-desktop {
+    display: none !important;
+  }
+
+  .figure12-responsive {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: 1.75rem 2rem;
+    padding-left: 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .figure12-responsive {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 /* Keep short figure letters and names above the image they identify. */
 #content *:has(> .adt-label-above) {
   display: flex !important;

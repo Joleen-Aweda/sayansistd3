@@ -21,7 +21,8 @@ try:
     assert embedded_match
     embedded = json.loads(embedded_match.group(1))
     assert embedded["./content/pages.json"] == pages
-    assert embedded["./assets/config.json"]["bundleVersion"] == "24"
+    version = json.loads((ROOT / "assets/config.json").read_text(encoding="utf-8"))["bundleVersion"]
+    assert embedded["./assets/config.json"]["bundleVersion"] == version
     for number in (1, 58, 59, 60, len(pages)):
         response = urllib.request.urlopen(base + pages[number - 1]["href"])
         markup = response.read().decode("utf-8")
@@ -29,8 +30,8 @@ try:
         assert f'content="{number}"' in markup
         assert 'id="content"' in markup
         assert "assets/base.bundle.local.js" in markup
-        assert "assets/offline-preloader.js?v=24" in markup
-        assert "assets/fonts.css?v=24" in markup
+        assert f"assets/offline-preloader.js?v={version}" in markup
+        assert f"assets/fonts.css?v={version}" in markup
     landing = urllib.request.urlopen(base + "index.html").read().decode("utf-8")
     assert "url=pg001_sec001.html" in landing
     assert 'id="nav-container"' in urllib.request.urlopen(base + pages[0]["href"]).read().decode("utf-8")

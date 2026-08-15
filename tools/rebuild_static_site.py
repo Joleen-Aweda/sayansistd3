@@ -44,8 +44,11 @@ class ContentAudit(HTMLParser):
 pages_path = ROOT / "content/pages.json"
 pages = json.loads(pages_path.read_text(encoding="utf-8"))
 pages[0]["href"] = "pg001_sec001.html"
+excluded_sections = {"pg005_sec001"}  # Its Shukurani content is merged into digital page 4.
 kept = []
 for page in pages:
+    if page["section_id"] in excluded_sections:
+        continue
     path = ROOT / page["href"]
     if not path.exists():
         continue
@@ -72,7 +75,32 @@ toc_path = ROOT / "content/toc.json"
 toc = json.loads(toc_path.read_text(encoding="utf-8"))
 valid_sections = {page["section_id"] for page in kept}
 toc = [entry for entry in toc if entry.get("section_id") in valid_sections and (ROOT / entry.get("href", "")).exists()]
+page_numbers = {page["section_id"]: page["page_number"] for page in kept}
+for entry in toc:
+    entry["page_number"] = page_numbers[entry["section_id"]]
 toc_path.write_text(json.dumps(toc, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+# Keep the printed contents page aligned with the actual digital navigation spine.
+contents_path = ROOT / "pg003_sec001.html"
+contents = contents_path.read_text(encoding="utf-8")
+contents_ids = {
+    "pg004_sec001": "pg003_n0006",
+    "pg006_sec001": "pg003_n0009",
+    "pg007_sec001": "pg003_n0014",
+    "pg023_sec001": "pg003_n0019",
+    "pg044_sec001": "pg003_n0024",
+    "pg081_sec001": "pg003_n0029",
+    "pg097_sec001": "pg003_n0034",
+}
+for section_id, text_id in contents_ids.items():
+    number = page_numbers[section_id]
+    contents = re.sub(
+        rf'(<[^>]+data-id="{text_id}"[^>]*>)[^<]*(</[^>]+>)',
+        rf"\g<1>{number}\2",
+        contents,
+        count=1,
+    )
+contents_path.write_text(contents, encoding="utf-8")
 
 manifest_path = ROOT / "imsmanifest.xml"
 if manifest_path.exists():

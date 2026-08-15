@@ -23,3 +23,14 @@
 /* Diagram labels requested in brackets by the review sheet. */
 .correction-bracket-label::before { content: "("; }
 .correction-bracket-label::after { content: ")"; }
+.skin-diagram-image {
+  width: 59.1%;
+  margin-left: 4.5%;
+}
+
+@media (max-width: 640px) {
+  .skin-diagram-image {
+    width: 92%;
+    margin-left: 0;
+  }
+}

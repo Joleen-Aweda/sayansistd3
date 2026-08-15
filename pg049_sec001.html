@@ -6,11 +6,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Sayansi: Kitabu cha Mwanafunzi Darasa la Tatu</title>
     <meta name="title-id" content="pg049_sec001" />
-    <meta name="page-section-id" content="77" />
+    <meta name="page-section-id" content="62" />
     <link href="./content/tailwind_output.css" rel="stylesheet">
     <link href="./content/corrections.css" rel="stylesheet">
     <link href="./assets/libs/fontawesome/css/all.min.css" rel="stylesheet">
-    <link href="./assets/fonts.css?v=24" rel="stylesheet">
+    <link href="./assets/fonts.css?v=49" rel="stylesheet">
+    <style>
+      .plant-light-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 24px;
+        align-items: start;
+        width: 100%;
+        max-width: 720px;
+        margin-inline: auto;
+      }
+      .plant-light-panel { min-width: 0; text-align: center; }
+      .plant-light-figure { position: relative; display: inline-block; }
+      .plant-light-image { display: block; width: auto; height: 230px; }
+      .plant-light-label {
+        position: absolute;
+        z-index: 2;
+        font-family: "Comic Sans MS", "Trebuchet MS", sans-serif !important;
+        font-size: 21px !important;
+        line-height: 1.1 !important;
+        font-weight: 400;
+        color: #262626;
+        white-space: nowrap;
+      }
+      .plant-light-label--top { left: 46%; top: -34px; transform: translateX(-50%); }
+      .plant-light-label--left { right: calc(100% + 8px); top: 38px; }
+      .plant-light-label--right { left: calc(100% + 8px); top: 38px; }
+      .plant-light-panel:nth-child(3) .plant-light-figure { transform: translateX(-45px); }
+      @media (max-width: 640px) {
+        .plant-light-grid { gap: 6px; }
+        .plant-light-image { height: 190px; }
+        .plant-light-label { font-size: 16px !important; }
+        .plant-light-label--top { top: -26px; }
+        .plant-light-label--left, .plant-light-label--right { top: 31px; }
+        .plant-light-panel:nth-child(3) .plant-light-figure { transform: translateX(-38px); }
+      }
+    </style>
 </head>
 
 <body class="min-h-screen flex items-center justify-center">
@@ -43,20 +79,24 @@
       </div>
 
       <div class="relative z-10 pt-2">
-        <div class="flex items-end justify-start gap-8 max-lg:flex-wrap max-lg:gap-6 max-sm:flex-col max-sm:items-center max-sm:gap-5">
-          <div class="flex flex-col items-center max-sm:w-full">
-            <div data-id="pg049_n0017" class="mb-1 text-[0.95rem] text-neutral-800 max-sm:text-[0.95rem]">Mwanga</div>
-            <img data-id="pg049_im001" src="images/pg049_im001.jpg" alt="Mmea kwenye chungu ukikua wima unapopata mwanga kutoka juu." class="h-[230px] w-auto max-w-full object-contain max-lg:h-[200px] max-sm:h-[180px]" style="max-width: 100%; height: auto;">
+        <div class="plant-light-grid">
+          <div class="plant-light-panel">
+            <div class="plant-light-figure">
+              <div data-id="pg049_n0017" class="plant-light-label plant-light-label--top">Mwanga</div>
+              <img data-duplicate-id="pg049_im001" src="images/pg049_im001.jpg" alt="Kielelezo namba 3 kinaonesha mmea kwenye chungu ukikua wima unapopata mwanga kutoka juu." class="plant-light-image object-contain">
+            </div><span class="adt-image-description" data-id="pg049_im001">Kielelezo namba 3 kinaonesha mmea kwenye chungu ukikua wima unapopata mwanga kutoka juu.</span>
           </div>
-
-          <div class="flex flex-col items-center max-sm:w-full">
-            <div data-id="pg049_n0019" class="mb-1 text-[0.95rem] text-neutral-800 max-sm:text-[0.95rem]">Mwanga</div>
-            <img data-id="pg049_im002" src="images/pg049_im002.jpg" alt="Mmea kwenye chungu ukipinda kuelekea mwanga unaotoka upande wa kushoto." class="h-[230px] w-auto max-w-full object-contain max-lg:h-[200px] max-sm:h-[180px]" style="max-width: 100%; height: auto;">
+          <div class="plant-light-panel">
+            <div class="plant-light-figure">
+              <div data-id="pg049_n0019" class="plant-light-label plant-light-label--left">Mwanga</div>
+              <img data-duplicate-id="pg049_im002" src="images/pg049_im002.jpg" alt="Kielelezo namba 3 kinaonesha mmea kwenye chungu ukipinda kuelekea mwanga unaotoka upande wa kushoto." class="plant-light-image object-contain">
+            </div><span class="adt-image-description" data-id="pg049_im002">Kielelezo namba 3 kinaonesha mmea kwenye chungu ukipinda kuelekea mwanga unaotoka upande wa kushoto.</span>
           </div>
-
-          <div class="flex flex-col items-center max-sm:w-full">
-            <div data-id="pg049_n0021" class="mb-1 text-[0.95rem] text-neutral-800 max-sm:text-[0.95rem]">Mwanga</div>
-            <img data-id="pg049_im003" src="images/pg049_im003.jpg" alt="Mmea kwenye chungu ukipinda kuelekea mwanga unaotoka upande wa kulia." class="h-[230px] w-auto max-w-full object-contain max-lg:h-[200px] max-sm:h-[180px]" style="max-width: 100%; height: auto;">
+          <div class="plant-light-panel">
+            <div class="plant-light-figure">
+              <div data-id="pg049_n0021" class="plant-light-label plant-light-label--right">Mwanga</div>
+              <img data-duplicate-id="pg049_im003" src="images/pg049_im003.jpg" alt="Kielelezo namba 3 kinaonesha mmea kwenye chungu ukipinda kuelekea mwanga unaotoka upande wa kulia." class="plant-light-image object-contain">
+            </div><span class="adt-image-description" data-id="pg049_im003">Kielelezo namba 3 kinaonesha mmea kwenye chungu ukipinda kuelekea mwanga unaotoka upande wa kulia.</span>
           </div>
         </div>
 
@@ -69,9 +109,9 @@
 
     <div class="relative z-50" id="interface-container"></div>
     <div class="relative z-50" id="nav-container"></div>
-    <script src="./assets/offline-preloader.js?v=24"></script>
+    <script src="./assets/offline-preloader.js?v=49"></script>
     <script src="./assets/scorm.js"></script>
-    <script src="./assets/base.bundle.local.js"></script>
+    <script src="./assets/image-narration-highlight.js?v=49"></script>    <script src="./assets/base.bundle.local.js"></script>
 </body>
 
 </html>

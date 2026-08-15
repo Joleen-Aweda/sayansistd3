@@ -6,10 +6,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Sayansi: Kitabu cha Mwanafunzi Darasa la Tatu</title>
     <meta name="title-id" content="pg075_sec001" />
-    <meta name="page-section-id" content="123" />
+    <meta name="page-section-id" content="99" />
     <link href="./content/tailwind_output.css" rel="stylesheet">
     <link href="./assets/libs/fontawesome/css/all.min.css" rel="stylesheet">
-    <link href="./assets/fonts.css?v=24" rel="stylesheet">
+    <link href="./assets/fonts.css?v=49" rel="stylesheet">
+    <style>
+      .flower-label { position: absolute; z-index: 10; display: flex; align-items: center; gap: 12px; }
+      .flower-leader { height: 2px; background: #404040; flex: none; }
+      .flower-label-petal { left: 449px; top: 70px; }
+      .flower-label-petal .flower-leader { width: 72px; }
+      .flower-label-sepal { left: 392px; top: 157px; }
+      .flower-label-sepal .flower-leader { width: 129px; }
+      .flower-label-stalk { left: 55px; top: 207px; }
+      .flower-label-stalk .flower-leader { width: 194px; }
+      @media (max-width: 1024px) {
+        .flower-label-petal { left: 437px; top: 62px; }
+        .flower-label-petal .flower-leader { width: 84px; }
+        .flower-label-sepal { left: 386px; top: 139px; }
+        .flower-label-sepal .flower-leader { width: 135px; }
+        .flower-label-stalk { left: 55px; top: 183px; }
+        .flower-label-stalk .flower-leader { width: 194px; }
+      }
+      @media (max-width: 640px) {
+        .flower-label { gap: 6px; }
+        .flower-label-petal { left: 343px; top: 42px; }
+        .flower-label-petal .flower-leader { width: 50px; }
+        .flower-label-sepal { left: 300px; top: 91px; }
+        .flower-label-sepal .flower-leader { width: 61px; }
+        .flower-label-stalk { left: 0; top: 118px; }
+        .flower-label-stalk .flower-leader { width: 189px; }
+      }
+      @media (max-width: 420px) {
+        .flower-label-petal { left: 220px; top: 34px; }
+        .flower-label-petal .flower-leader { width: 20px; }
+        .flower-label-sepal { left: 177px; top: 83px; }
+        .flower-label-sepal .flower-leader { width: 57px; }
+        .flower-label-stalk { left: 0; top: 110px; }
+        .flower-label-stalk .flower-leader { width: 67px; }
+      }
+    </style>
 </head>
 
 <body class="min-h-screen flex items-center justify-center">
@@ -30,26 +65,26 @@
         <span data-id="pg075_n0009">Tunda hutoa mbegu zinazoota na kuwa mche.</span>
         <span data-id="pg075_n0010">Mche hukua na kuwa mmea kamili.</span>
         <span data-id="pg075_n0011">Sehemu za ua ni pamoja na petali, sepali na kikonyo.</span>
-        <span data-id="pg075_n0012">Chunguza Kielelezo namba 21.</span>
+        <span data-id="pg075_n0012">Kielelezo 21 kinaonesha sehemu za ua (sepali, petali na kitako cha ua).</span>
       </p>
 
       <div class="relative z-10 mx-auto mt-3 flex max-w-[680px] flex-col items-center max-sm:mt-5 max-sm:max-w-full">
         <div class="relative w-full px-4 py-2 max-sm:px-0">
-          <img data-id="pg075_im001" src="images/pg075_im001.jpg" alt="Ua jekundu linalotumika kuonyesha sehemu za ua kama petali, sepali na kikonyo." class="mx-auto max-w-full w-[430px] object-contain max-lg:w-[380px] max-sm:w-[250px]" style="max-width: 100%; height: auto;">
+          <img data-duplicate-id="pg075_im001" src="images/pg075_im001.jpg" alt="Kielelezo namba 21 kinaonesha ua jekundu linalotumika kuonyesha sehemu za ua kama petali, sepali na kikonyo." class="mx-auto max-w-full w-[430px] object-contain max-lg:w-[380px] max-sm:w-[250px]" style="max-width: 100%; height: auto;"><span class="adt-image-description" data-id="pg075_im001">Kielelezo namba 21 kinaonesha ua jekundu linalotumika kuonyesha sehemu za ua kama petali, sepali na kikonyo.</span>
 
-          <div class="absolute right-[10%] top-[19%] z-10 flex items-center gap-3 max-lg:right-[8%] max-sm:static max-sm:mt-3 max-sm:justify-end">
-            <div class="h-[2px] w-24 bg-neutral-700 max-sm:w-12"></div>
+          <div class="flower-label flower-label-petal">
+            <div class="flower-leader"></div>
             <div data-id="pg075_n0014" class="text-[20px] leading-none text-neutral-800 max-lg:text-[18px] max-sm:text-[14px]">Petali</div>
           </div>
 
-          <div class="absolute right-[13%] top-[59%] z-10 flex items-center gap-3 max-lg:right-[10%] max-sm:static max-sm:mt-2 max-sm:justify-end">
-            <div class="h-[2px] w-24 bg-neutral-700 max-sm:w-12"></div>
+          <div class="flower-label flower-label-sepal">
+            <div class="flower-leader"></div>
             <div data-id="pg075_n0015" class="text-[20px] leading-none text-neutral-800 max-lg:text-[18px] max-sm:text-[14px]">Sepali</div>
           </div>
 
-          <div class="absolute left-[8%] top-[77%] z-10 flex items-center gap-3 max-lg:left-[6%] max-sm:static max-sm:mt-2 max-sm:justify-start">
+          <div class="flower-label flower-label-stalk">
             <div data-id="pg075_n0016" class="text-[20px] leading-none text-neutral-800 max-lg:text-[18px] max-sm:text-[14px]">Kikonyo</div>
-            <div class="h-[2px] w-28 bg-neutral-700 max-sm:w-14"></div>
+            <div class="flower-leader"></div>
           </div>
         </div>
 
@@ -61,7 +96,7 @@
       <p class="mt-3 max-w-[980px] text-[25px] leading-[1.6] max-lg:text-[22px] max-lg:leading-[1.65] max-sm:text-[18px] max-sm:leading-[1.55]">
         <span data-id="pg075_n0021">Baadhi ya mimea haitoi maua lakini inatoa mbegu.</span>
         <span data-id="pg075_n0022">Mbegu za mimea hii hazifunikwi ndani ya tunda, kwa mfano mvinje na mfeni.</span>
-        <span data-id="pg075_n0023">Chunguza Kielelezo namba 22.</span>
+        <span data-id="pg075_n0023">Kielelezo 22 kinaonesha mimea isiyotoa maua (mti wa mvinje na mmea wa feni).</span>
       </p>
     </div>
   </section>
@@ -70,9 +105,9 @@
 
     <div class="relative z-50" id="interface-container"></div>
     <div class="relative z-50" id="nav-container"></div>
-    <script src="./assets/offline-preloader.js?v=24"></script>
+    <script src="./assets/offline-preloader.js?v=49"></script>
     <script src="./assets/scorm.js"></script>
-    <script src="./assets/base.bundle.local.js"></script>
+    <script src="./assets/image-narration-highlight.js?v=49"></script>    <script src="./assets/base.bundle.local.js"></script>
 </body>
 
 </html>
