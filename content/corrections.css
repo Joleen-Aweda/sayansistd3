@@ -1,0 +1,25 @@
+/* Post-review legibility corrections listed in the August 2026 review sheet. */
+.correction-large-text :is(p, li, td, th, legend, label) [data-id],
+.correction-large-text :is(p, li, td, th, legend, label)[data-id] {
+  font-size: max(1.35rem, 1em) !important;
+  line-height: 1.45 !important;
+}
+
+/* Review activities should show unfilled response controls, not answer words. */
+.correction-blank-choice {
+  min-height: 2.75rem;
+}
+
+/* Keep the source-book (a)-(d) labels without duplicate numeric badges. */
+.correction-no-option-numbers .option-letter {
+  display: none !important;
+}
+
+/* Choice letters are spoken from localized text; duplicate numeric badges are hidden. */
+[data-section-id="pg078_sec001"] .option-letter {
+  display: none !important;
+}
+
+/* Diagram labels requested in brackets by the review sheet. */
+.correction-bracket-label::before { content: "("; }
+.correction-bracket-label::after { content: ")"; }

@@ -56,3 +56,95 @@ body, p, h1, h2, h3, h4, h5, h6, span, div, button, input, textarea, select {
 #interface-container, #interface-container * {
   font-family: 'Atkinson Hyperlegible', sans-serif;
 }
+
+/* Book-wide typography matched to the corrected Standard Three reference. */
+#content {
+  font-family: 'Merriweather', serif;
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+#content :where(p, li, td, th, label, figcaption, textarea, input, select, button),
+#content :where(span, div)[data-id] {
+  font-size: 30px !important;
+  line-height: 1.5 !important;
+}
+
+#content :where(p, li, td, th, label, figcaption, textarea, input, select, button):not([class*='font-']),
+#content :where(span, div)[data-id]:not([class*='font-']) {
+  font-weight: 400;
+}
+
+#content :where(h1, h2),
+#content :where(h1, h2) [data-id] {
+  font-size: 60px !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+}
+
+#content :where(h3, h4, h5, h6),
+#content :where(h3, h4, h5, h6) [data-id] {
+  font-size: 36px !important;
+  font-weight: 800 !important;
+  line-height: 1.111 !important;
+}
+
+#content :where(h3, h4, h5, h6)[class*='text-5xl'],
+#content :where(h3, h4, h5, h6)[class*='text-5xl'] [data-id] {
+  font-size: 48px !important;
+  line-height: 1 !important;
+}
+
+/* Image descriptions remain available to assistive technology and narration. */
+#content .adt-image-description,
+#content [data-image-description] {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Keep short figure letters and names above the image they identify. */
+#content *:has(> .adt-label-above) {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+#content .adt-label-above {
+  display: block;
+  order: -1;
+  margin-top: 0 !important;
+  margin-bottom: 0.45rem !important;
+  font-weight: 600;
+  text-align: center;
+}
+
+@media (max-width: 1024px) {
+  #content { font-size: 24px; }
+  #content :where(p, li, td, th, label, figcaption, textarea, input, select, button),
+  #content :where(span, div)[data-id] { font-size: 24px !important; }
+  #content :where(h1, h2),
+  #content :where(h1, h2) [data-id] { font-size: 48px !important; }
+  #content :where(h3, h4, h5, h6),
+  #content :where(h3, h4, h5, h6) [data-id] { font-size: 30px !important; }
+  #content :where(h3, h4, h5, h6)[class*='text-5xl'],
+  #content :where(h3, h4, h5, h6)[class*='text-5xl'] [data-id] { font-size: 40px !important; }
+}
+
+@media (max-width: 640px) {
+  #content { font-size: 20px; }
+  #content :where(p, li, td, th, label, figcaption, textarea, input, select, button),
+  #content :where(span, div)[data-id] { font-size: 20px !important; }
+  #content :where(h1, h2),
+  #content :where(h1, h2) [data-id] { font-size: 30px !important; }
+  #content :where(h3, h4, h5, h6),
+  #content :where(h3, h4, h5, h6) [data-id],
+  #content :where(h3, h4, h5, h6)[class*='text-5xl'],
+  #content :where(h3, h4, h5, h6)[class*='text-5xl'] [data-id] { font-size: 24px !important; }
+}
