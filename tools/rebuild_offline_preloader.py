@@ -39,6 +39,14 @@ for page in pages:
     html = path.read_text(encoding="utf-8")
     html = re.sub(r"assets/offline-preloader\.js(?:\?v=\d+)?", f"assets/offline-preloader.js?v={bundle_version}", html)
     html = re.sub(r"assets/fonts\.css(?:\?v=\d+)?", f"assets/fonts.css?v={bundle_version}", html)
+    # Image files are frequently corrected in place during post-processing.
+    # Version every local image URL so the reader never reuses an older image
+    # cached under the same filename on a different page.
+    html = re.sub(
+        r'(src=["\']images/[^"\'?]+)(?:\?v=\d+)?(["\'])',
+        rf'\1?v={bundle_version}\2',
+        html,
+    )
     path.write_text(html, encoding="utf-8")
 
 print(f"Embedded {len(pages)} consecutive pages with bundle version {bundle_version}.")

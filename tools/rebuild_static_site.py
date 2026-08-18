@@ -44,7 +44,11 @@ class ContentAudit(HTMLParser):
 pages_path = ROOT / "content/pages.json"
 pages = json.loads(pages_path.read_text(encoding="utf-8"))
 pages[0]["href"] = "pg001_sec001.html"
-excluded_sections = {"pg005_sec001"}  # Its Shukurani content is merged into digital page 4.
+excluded_sections = {
+    "pg005_sec001",  # Its Shukurani content is merged into digital page 4.
+    "pg021_sec001",  # Its matching-table rows are merged into page 20 section 2.
+    "pg058_sec002",  # Its activity is relocated into page 58 section 1.
+}
 kept = []
 for page in pages:
     if page["section_id"] in excluded_sections:

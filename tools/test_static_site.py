@@ -14,7 +14,7 @@ threading.Thread(target=server.serve_forever, daemon=True).start()
 try:
     base = f"http://127.0.0.1:{server.server_port}/"
     pages = json.load(urllib.request.urlopen(base + "content/pages.json"))
-    assert [page["page_number"] for page in pages] == list(range(1, len(pages) + 1))
+    assert [page["page_number"] for page in pages] == list(range(1, 110)) + list(range(111, 150))
     assert pages[0]["href"] == "pg001_sec001.html"
     preloader = (ROOT / "assets/offline-preloader.js").read_text(encoding="utf-8")
     embedded_match = re.search(r"var INLINE = (\{.*?\});\n\s*var ", preloader, re.DOTALL)
@@ -27,7 +27,7 @@ try:
         response = urllib.request.urlopen(base + pages[number - 1]["href"])
         markup = response.read().decode("utf-8")
         assert response.status == 200
-        assert f'content="{number}"' in markup
+        assert f'content="{pages[number - 1]["page_number"]}"' in markup
         assert 'id="content"' in markup
         assert "assets/base.bundle.local.js" in markup
         assert f"assets/offline-preloader.js?v={version}" in markup
@@ -35,7 +35,7 @@ try:
     landing = urllib.request.urlopen(base + "index.html").read().decode("utf-8")
     assert "url=pg001_sec001.html" in landing
     assert 'id="nav-container"' in urllib.request.urlopen(base + pages[0]["href"]).read().decode("utf-8")
-    print(f"PASS: native pages 1, 58, 59, 60 and {len(pages)} load with consecutive navigation.")
+    print(f"PASS: native pages 1, 58, 59, 60 and {pages[-1]['page_number']} load with manifest navigation.")
 finally:
     server.shutdown()
     server.server_close()

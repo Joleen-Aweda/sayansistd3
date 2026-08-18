@@ -6,12 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Sayansi: Kitabu cha Mwanafunzi Darasa la Tatu</title>
     <meta name="title-id" content="pg043_sec001" />
-    <meta name="page-section-id" content="56" />
+    <meta name="page-section-id" content="55" />
     <link href="./content/tailwind_output.css" rel="stylesheet">
     <link href="./content/corrections.css" rel="stylesheet">
     <link href="./assets/libs/fontawesome/css/all.min.css" rel="stylesheet">
-    <link href="./assets/fonts.css?v=49" rel="stylesheet">
+    <link href="./assets/fonts.css?v=185" rel="stylesheet">
     <style>
+      .glossary-row {
+        display: grid !important;
+        grid-template-columns: 155px minmax(0, 1fr) !important;
+        column-gap: 20px !important;
+        align-items: start !important;
+      }
+      .glossary-row > p {
+        margin: 0 !important;
+      }
+      @media (max-width: 1024px) {
+        .glossary-row {
+          grid-template-columns: 130px minmax(0, 1fr) !important;
+          column-gap: 16px !important;
+        }
+      }
       @media (max-width: 640px) {
         .glossary-row {
           display: grid !important;
@@ -61,7 +76,7 @@
 
     <div class="relative z-50" id="interface-container"></div>
     <div class="relative z-50" id="nav-container"></div>
-    <script src="./assets/offline-preloader.js?v=49"></script>
+    <script src="./assets/offline-preloader.js?v=185"></script>
     <script src="./assets/scorm.js"></script>
     <script src="./assets/image-narration-highlight.js?v=49"></script>    <script src="./assets/base.bundle.local.js"></script>
 </body>

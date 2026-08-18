@@ -36,8 +36,8 @@ all_markup = "\n".join((ROOT / page["href"]).read_text(encoding="utf-8") for pag
 assert not re.search(r"\bNa\.?(?=\s|<|$)", all_markup)
 assert not any(re.search(r"\bNa\.?(?=\s|$)", value) for value in texts.values())
 page_ten = (ROOT / "pg010_sec002.html").read_text(encoding="utf-8")
-assert "kila picha a mpaka de." in page_ten
-assert texts["pg010_n0008"] == "Jaza jedwali lifuatalo kwa kueleza tendo la kisayansi lililooneshwa kwa kila picha a mpaka de."
+assert "kila picha a mpaka d." in page_ten
+assert texts["pg010_n0008"] == "Jaza jedwali lifuatalo kwa kueleza tendo la kisayansi lililooneshwa kwa kila picha a mpaka d."
 assert texts["pg010_n0012"].lower() == "namba"
 
 image_ids = set()
