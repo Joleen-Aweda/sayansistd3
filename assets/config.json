@@ -1,6 +1,6 @@
 {
   "title": "Sayansi: Kitabu cha Mwanafunzi Darasa la Tatu",
-  "bundleVersion": "185",
+  "bundleVersion": "186",
   "languages": {
     "available": [
       "sw",
@@ -9,7 +9,7 @@
     "default": "sw"
   },
   "features": {
-    "signLanguage": false,
+    "signLanguage": true,
     "easyRead": true,
     "glossary": true,
     "eli5": false,
