@@ -9,7 +9,7 @@ pages = json.loads((ROOT / "content/pages.json").read_text(encoding="utf-8"))
 texts = json.loads((ROOT / "content/i18n/sw/texts.json").read_text(encoding="utf-8"))
 
 version = json.loads((ROOT / "assets/config.json").read_text(encoding="utf-8"))["bundleVersion"]
-assert version == "186"
+assert version == "187"
 assert pages[0]["href"] == "pg001_sec001.html"
 assert [item["page_number"] for item in pages] == list(range(1, 110)) + list(range(111, 150))
 assert len(pages) == 148
