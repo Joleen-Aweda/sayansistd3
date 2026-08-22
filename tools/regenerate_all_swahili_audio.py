@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 LANGUAGES = ("sw", "sw-TZ")
 VOICE = "sw-TZ-DaudiNeural"
 RATE = "-5%"
-VERSION = "176"
+VERSION = "188"
 ROMAN = {
     "i": "moja", "ii": "mbili", "iii": "tatu", "iv": "nne", "v": "tano",
     "vi": "sita", "vii": "saba", "viii": "nane", "ix": "tisa", "x": "kumi",
@@ -142,6 +142,12 @@ def main() -> None:
         "pg004_n0027", "pg004_n0028", "pg004_im001", "pg004_n0030", "pg004_n0031", "pg004_n0032"
     }
     narration = {key: spoken_text(source_texts.get(key, "")) for key in all_keys}
+    # Keep the printed slash in page 8 while narrating it naturally as "au".
+    for key in ("pg008_n0017", "pg008_n0017_easy_read"):
+        narration[key] = (
+            "Chunguza kielelezo namba mbili na andika unachokiona, "
+            "au ulichokichunguza."
+        )
     # Keep the printed quantity for sighted readers, but avoid repeating it in narration.
     for key in ("pg010_n0005", "pg010_n0005_easy_read"):
         narration[key] = narration.get(key, "").replace("tatu (3)", "tatu")

@@ -9,7 +9,7 @@ pages = json.loads((ROOT / "content/pages.json").read_text(encoding="utf-8"))
 texts = json.loads((ROOT / "content/i18n/sw/texts.json").read_text(encoding="utf-8"))
 
 version = json.loads((ROOT / "assets/config.json").read_text(encoding="utf-8"))["bundleVersion"]
-assert version == "187"
+assert version == "188"
 assert pages[0]["href"] == "pg001_sec001.html"
 assert [item["page_number"] for item in pages] == list(range(1, 110)) + list(range(111, 150))
 assert len(pages) == 148
@@ -40,5 +40,21 @@ page2 = (ROOT / "pg002_sec001.html").read_text(encoding="utf-8")
 assert page2.index('data-id="pg002_n0017"') < page2.index('data-id="pg002_n0003"')
 assert texts["pg002_n0017"] == "I. S. B. N."
 assert texts["pg002_n0003"] == "978-9987-09-952-8"
+
+page8_instruction = "Chunguza kielelezo namba 2 na andika unachokiona / ulichokichunguza"
+page8 = (ROOT / "pg008_sec002.html").read_text(encoding="utf-8")
+assert page8_instruction in page8
+assert texts["pg008_n0017"] == page8_instruction
+assert texts["pg008_n0017_easy_read"] == page8_instruction
+for language in ("sw", "sw-TZ"):
+    language_texts = json.loads(
+        (ROOT / f"content/i18n/{language}/texts.json").read_text(encoding="utf-8")
+    )
+    language_audios = json.loads(
+        (ROOT / f"content/i18n/{language}/audios.json").read_text(encoding="utf-8")
+    )
+    assert language_texts["pg008_n0017"] == page8_instruction
+    assert language_audios["pg008_n0017"] == "pg008_n0017.mp3?v=188"
+    assert language_audios["pg008_n0017_easy_read"] == "pg008_n0017_easy_read.mp3?v=188"
 
 print(f"PASS: 148-section version {version} publication order, local assets, inclusive wording and key diagrams are valid.")
