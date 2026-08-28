@@ -14,8 +14,9 @@ import edge_tts
 ROOT = Path(__file__).resolve().parents[1]
 LANGUAGES = ("sw", "sw-TZ")
 VOICE = "sw-TZ-DaudiNeural"
+ENGLISH_VOICE = "en-GB-RyanNeural"
 RATE = "-5%"
-VERSION = "188"
+VERSION = "192"
 ROMAN = {
     "i": "moja", "ii": "mbili", "iii": "tatu", "iv": "nne", "v": "tano",
     "vi": "sita", "vii": "saba", "viii": "nane", "ix": "tisa", "x": "kumi",
@@ -23,6 +24,10 @@ ROMAN = {
 LETTER_NAMES = {"a": "a", "b": "be", "c": "che", "d": "de"}
 ACTIVITY_ORDINALS = {
     "1": "kwanza", "2": "pili", "3": "tatu", "4": "nne", "5": "tano",
+    "6": "sita", "7": "saba", "8": "nane", "9": "tisa",
+}
+CARDINALS = {
+    "1": "moja", "2": "mbili", "3": "tatu", "4": "nne", "5": "tano",
     "6": "sita", "7": "saba", "8": "nane", "9": "tisa",
 }
 FIGURE_ORDINALS = {
@@ -77,6 +82,12 @@ def spoken_text(value: str) -> str:
         value,
         flags=re.I,
     )
+    value = re.sub(
+        r"\bKazi ya kufanya namba ([1-9])\b",
+        lambda match: f"Kazi ya kufanya namba {CARDINALS[match.group(1)]}",
+        value,
+        flags=re.I,
+    )
     # A hyphen within a number is only a visual separator. Removing it keeps
     # the voice engine from announcing the punctuation as "ondoa".
     value = re.sub(r"(?<=\d)[-‐‑–—](?=\d)", " ", value)
@@ -116,7 +127,38 @@ async def generate(cache: Path, texts: list[str], concurrency: int) -> None:
             completed += 1
             return
         async with semaphore:
-            await edge_tts.Communicate(text, VOICE, rate=RATE).save(str(target))
+            parts = [part for part in re.split(r"(Starfall|GCompris)", text, flags=re.I) if part]
+            if not any(re.fullmatch(r"Starfall|GCompris", part, flags=re.I) for part in parts):
+                await edge_tts.Communicate(text, VOICE, rate=RATE).save(str(target))
+            else:
+                part_dir = cache / f"parts-{hashlib.sha256(text.encode()).hexdigest()}"
+                part_dir.mkdir(parents=True, exist_ok=True)
+                clips = []
+                for index, part in enumerate(parts):
+                    if not re.search(r"\w", part, flags=re.UNICODE):
+                        continue
+                    is_english = bool(re.fullmatch(r"Starfall|GCompris", part, flags=re.I))
+                    spoken_part = "G Compris" if part.lower() == "gcompris" else part
+                    clip = part_dir / f"{index:03d}.mp3"
+                    await edge_tts.Communicate(
+                        spoken_part,
+                        ENGLISH_VOICE if is_english else VOICE,
+                        rate=RATE,
+                    ).save(str(clip))
+                    clips.append(clip)
+                concat_file = part_dir / "concat.txt"
+                concat_file.write_text(
+                    "".join(f"file '{clip.as_posix()}'\n" for clip in clips),
+                    encoding="utf-8",
+                )
+                subprocess.run(
+                    [
+                        "ffmpeg", "-y", "-hide_banner", "-loglevel", "error",
+                        "-f", "concat", "-safe", "0", "-i", str(concat_file),
+                        "-c", "copy", str(target),
+                    ],
+                    check=True,
+                )
             completed += 1
             if completed % 100 == 0:
                 print(f"Generated {completed}/{len(texts)} unique narration clips.", flush=True)
@@ -129,6 +171,7 @@ def main() -> None:
     parser.add_argument("--concurrency", type=int, default=6)
     parser.add_argument("--changed-only", action="store_true", help="Regenerate image, namba, contents and merged-page narration only")
     parser.add_argument("--ids", help="Comma-separated narration IDs to regenerate")
+    parser.add_argument("--ids-file", help="File containing one narration ID per line")
     parser.add_argument("--figure-images", action="store_true", help="Regenerate image descriptions beginning with Kielelezo")
     parser.add_argument("--letter-labels", action="store_true", help="Regenerate narration beginning with labels (a) through (d)")
     args = parser.parse_args()
@@ -252,6 +295,12 @@ def main() -> None:
         }
     }
     requested_ids = set(args.ids.split(",")) if args.ids else None
+    if args.ids_file:
+        requested_ids = {
+            line.strip()
+            for line in Path(args.ids_file).read_text(encoding="utf-8").splitlines()
+            if line.strip()
+        }
     if args.figure_images:
         requested_ids = {key for key, value in narration.items() if "_im" in key and value.startswith("Kielelezo ")}
     if args.letter_labels:
@@ -266,7 +315,7 @@ def main() -> None:
         and (not args.changed_only or key in changed_ids)
     }
     unique = sorted(set(selected.values()))
-    cache = ROOT / ".cache" / f"narration-{VOICE}-{RATE.replace('%', 'pct')}"
+    cache = ROOT / ".cache" / f"narration-{VOICE}-{RATE.replace('%', 'pct')}-english-terms"
     cache.mkdir(parents=True, exist_ok=True)
     asyncio.run(generate(cache, unique, args.concurrency))
 
