@@ -30,17 +30,17 @@ def probe(path: Path) -> dict:
 def main() -> None:
     config = json.loads((ROOT / "assets/config.json").read_text(encoding="utf-8"))
     assert config["features"]["signLanguage"] is True
-    assert config["bundleVersion"] == "194"
+    assert config["bundleVersion"] == "195"
 
     concurrent_script = ROOT / "assets/concurrent-sign-language-playback.js"
     assert concurrent_script.is_file()
     for page in PAGES:
         markup = (ROOT / page["href"]).read_text(encoding="utf-8")
         assert (
-            'assets/concurrent-sign-language-playback.js?v=194' in markup
+            'assets/concurrent-sign-language-playback.js?v=195' in markup
         ), page["href"]
 
-    expected_keys = {f"video-{number}" for number in range(1, len(PAGES) + 1)}
+    expected_keys = {f"video-{number}" for number in range(2, 150)}
     mappings = []
     for language in ("sw", "sw-TZ"):
         mapping = json.loads(
@@ -53,7 +53,7 @@ def main() -> None:
     assert mappings[0] == mappings[1]
 
     files = sorted((ROOT / "content/sign-language").glob("*.mp4"))
-    assert len(files) == len(PAGES)
+    assert len(files) == 148
     for path in files:
         metadata = probe(path)
         streams = metadata["streams"]

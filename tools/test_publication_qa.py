@@ -9,15 +9,16 @@ pages = json.loads((ROOT / "content/pages.json").read_text(encoding="utf-8"))
 texts = json.loads((ROOT / "content/i18n/sw/texts.json").read_text(encoding="utf-8"))
 
 version = json.loads((ROOT / "assets/config.json").read_text(encoding="utf-8"))["bundleVersion"]
-assert version == "194"
-assert pages[0]["href"] == "pg001_sec001.html"
-assert [item["page_number"] for item in pages] == list(range(1, 110)) + list(range(111, 150))
-assert len(pages) == 148
+assert version == "195"
+assert pages[0] == {"section_id": "cover_sec001", "href": "index.html"}
+assert pages[-1] == {"section_id": "back_cover_sec001", "href": "back-cover.html"}
+assert [item["page_number"] for item in pages if "page_number" in item] == list(range(1, 110)) + list(range(111, 150))
+assert len(pages) == 150
 assert "pg021_sec001" not in {item["section_id"] for item in pages}
 
-for item in pages:
+for position, item in enumerate(pages, 1):
     markup = (ROOT / item["href"]).read_text(encoding="utf-8")
-    assert re.search(rf'<meta name="page-section-id" content="{item["page_number"]}"\s*/?>', markup), item["href"]
+    assert re.search(rf'<meta name="page-section-id" content="{position}"\s*/?>', markup), item["href"]
     assert f"offline-preloader.js?v={version}" in markup, item["href"]
     assert not re.search(r'<img\b[^>]+src="https?://', markup), item["href"]
     for image_src in re.findall(r'<img\b[^>]+src=["\'](images/[^"\']+)', markup, flags=re.I):
@@ -88,7 +89,7 @@ for number, text_id in {
 
 chapter_markup = "\n".join(
     (ROOT / item["href"]).read_text(encoding="utf-8")
-    for item in pages if 128 <= item["page_number"] <= 148
+    for item in pages if 128 <= item.get("page_number", -1) <= 148
 )
 assert "simumaizi" not in chapter_markup.lower()
 assert "backend" not in chapter_markup.lower()
@@ -108,6 +109,6 @@ for item in pages:
             (ROOT / f"content/i18n/{language}/audios.json").read_text(encoding="utf-8")
         )
         assert language_texts[end_id] == "Mwisho wa ukurasa."
-        assert language_audios[end_id] == "page_end.mp3?v=192"
+        assert language_audios[end_id].split("?", 1)[0] == "page_end.mp3"
 
-print(f"PASS: 148-section version {version} publication order, local assets, inclusive wording and key diagrams are valid.")
+print(f"PASS: 150-section version {version} publication order, narrated covers, local assets, inclusive wording and key diagrams are valid.")

@@ -4310,5 +4310,11 @@
   "pg109_im001_seg001_v1_easy_read": "pg109_im001_seg001_v1_easy_read.mp3?v=192",
   "pg109_im001_seg002_v1_easy_read": "pg109_im001_seg002_v1_easy_read.mp3?v=192",
   "pg110_n0005_easy_read": "pg110_n0005_easy_read.mp3?v=192",
-  "pg110_im002_easy_read": "pg110_im002_easy_read.mp3?v=192"
+  "pg110_im002_easy_read": "pg110_im002_easy_read.mp3?v=192",
+  "cover_im001": "cover_im001.mp3?v=195",
+  "cover_im001_easy_read": "cover_im001_easy_read.mp3?v=195",
+  "cover_sec001_end": "page_end.mp3?v=195",
+  "backcover_im001": "backcover_im001.mp3?v=195",
+  "backcover_im001_easy_read": "backcover_im001_easy_read.mp3?v=195",
+  "back_cover_sec001_end": "page_end.mp3?v=195"
 }

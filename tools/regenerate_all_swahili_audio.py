@@ -16,7 +16,7 @@ LANGUAGES = ("sw", "sw-TZ")
 VOICE = "sw-TZ-DaudiNeural"
 ENGLISH_VOICE = "en-GB-RyanNeural"
 RATE = "-5%"
-VERSION = "192"
+VERSION = "195"
 ROMAN = {
     "i": "moja", "ii": "mbili", "iii": "tatu", "iv": "nne", "v": "tano",
     "vi": "sita", "vii": "saba", "viii": "nane", "ix": "tisa", "x": "kumi",
