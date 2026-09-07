@@ -12,7 +12,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SOURCE = Path("/Users/joleen/Desktop/28. SAYANSI STD III - Complete")
-OUTPUT_DIR = ROOT / "content/sign-language"
+OUTPUT_DIR = ROOT / "content/i18n/sw/video"
 
 
 def numbered_sources(source_dir: Path) -> dict[int, Path]:
@@ -68,11 +68,12 @@ def main() -> None:
     args = parser.parse_args()
 
     pages = json.loads((ROOT / "content/pages.json").read_text(encoding="utf-8"))
+    content_pages = [page for page in pages if "page_number" in page]
     sources = numbered_sources(args.source)
-    expected = set(range(1, len(pages) + 1))
+    expected = set(range(1, len(content_pages) + 1))
     if set(sources) != expected:
         raise RuntimeError(
-            f"Expected video numbers 1-{len(pages)}; "
+            f"Expected video numbers 1-{len(content_pages)}; "
             f"missing={sorted(expected - set(sources))}, "
             f"unexpected={sorted(set(sources) - expected)}"
         )
@@ -88,17 +89,25 @@ def main() -> None:
             job.result()
             print(f"Optimized {completed}/{len(jobs)}", flush=True)
 
-    # Both Swahili variants share one physical set of videos. The reader prefixes
-    # mapped filenames with content/i18n/{language}/video/, so these relative paths
-    # resolve back to the shared content/sign-language directory.
-    mapping = {
-        f"video-{number}": f"../../../sign-language/video-{number:03d}.mp4"
+    # Keep one physical set under the default Swahili locale. The reader prefixes
+    # mappings with content/i18n/{language}/video/, so sw-TZ can resolve the same
+    # files through a relative locale path without duplicating large media.
+    sw_mapping = {
+        f"video-{number + 1}": f"video-{number:03d}.mp4"
         for number in sorted(expected)
     }
-    encoded = json.dumps(mapping, ensure_ascii=False, indent=2) + "\n"
-    for language in ("sw", "sw-TZ"):
+    sw_tz_mapping = {
+        key: f"../../sw/video/{filename}"
+        for key, filename in sw_mapping.items()
+    }
+    mappings = {"sw": sw_mapping, "sw-TZ": sw_tz_mapping}
+    for language, mapping in mappings.items():
+        video_dir = ROOT / f"content/i18n/{language}/video"
+        video_dir.mkdir(parents=True, exist_ok=True)
+        (video_dir / ".gitkeep").touch(exist_ok=True)
         (ROOT / f"content/i18n/{language}/videos.json").write_text(
-            encoded, encoding="utf-8"
+            json.dumps(mapping, ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
         )
 
     total_bytes = sum(path.stat().st_size for path in OUTPUT_DIR.glob("*.mp4"))

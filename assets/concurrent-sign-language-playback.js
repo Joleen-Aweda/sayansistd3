@@ -7,7 +7,8 @@
   function isSignLanguageVideo(media) {
     return (
       media instanceof HTMLVideoElement &&
-      media.currentSrc.includes("/content/sign-language/") &&
+      media.currentSrc.includes("/content/i18n/") &&
+      media.currentSrc.includes("/video/") &&
       media.closest('[class*="fixed"][class*="w-80"]') !== null
     );
   }

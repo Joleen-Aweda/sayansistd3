@@ -41,7 +41,7 @@ def main() -> None:
         ), page["href"]
 
     expected_keys = {f"video-{number}" for number in range(2, 150)}
-    mappings = []
+    mappings = {}
     for language in ("sw", "sw-TZ"):
         mapping = json.loads(
             (ROOT / f"content/i18n/{language}/videos.json").read_text(
@@ -49,11 +49,23 @@ def main() -> None:
             )
         )
         assert set(mapping) == expected_keys
-        mappings.append(mapping)
-    assert mappings[0] == mappings[1]
+        mappings[language] = mapping
 
-    files = sorted((ROOT / "content/sign-language").glob("*.mp4"))
+        base = ROOT / f"content/i18n/{language}/video"
+        for mapped_path in mapping.values():
+            assert (base / mapped_path).resolve().is_file(), mapped_path
+
+    for key in expected_keys:
+        sw_path = (ROOT / "content/i18n/sw/video" / mappings["sw"][key]).resolve()
+        sw_tz_path = (
+            ROOT / "content/i18n/sw-TZ/video" / mappings["sw-TZ"][key]
+        ).resolve()
+        assert sw_path == sw_tz_path, key
+
+    files = sorted((ROOT / "content/i18n/sw/video").glob("*.mp4"))
     assert len(files) == 148
+    all_content_videos = sorted((ROOT / "content").rglob("*.mp4"))
+    assert all_content_videos == files
     for path in files:
         metadata = probe(path)
         streams = metadata["streams"]
