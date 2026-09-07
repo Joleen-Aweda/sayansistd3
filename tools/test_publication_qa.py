@@ -9,7 +9,7 @@ pages = json.loads((ROOT / "content/pages.json").read_text(encoding="utf-8"))
 texts = json.loads((ROOT / "content/i18n/sw/texts.json").read_text(encoding="utf-8"))
 
 version = json.loads((ROOT / "assets/config.json").read_text(encoding="utf-8"))["bundleVersion"]
-assert version == "195"
+assert version == "196"
 assert pages[0] == {"section_id": "cover_sec001", "href": "index.html"}
 assert pages[-1] == {"section_id": "back_cover_sec001", "href": "back-cover.html"}
 assert [item["page_number"] for item in pages if "page_number" in item] == list(range(1, 110)) + list(range(111, 150))
@@ -97,18 +97,7 @@ page139 = (ROOT / "pg106_sec001.html").read_text(encoding="utf-8")
 assert "backend" not in page139.lower()
 
 for item in pages:
-    end_id = f'{item["section_id"]}_end'
     markup = (ROOT / item["href"]).read_text(encoding="utf-8")
-    assert markup.count(f'data-id="{end_id}"') == 1, item["href"]
-    assert markup.rfind(f'data-id="{end_id}"') > markup.rfind('class="adt-image-description"')
-    for language in ("sw", "sw-TZ"):
-        language_texts = json.loads(
-            (ROOT / f"content/i18n/{language}/texts.json").read_text(encoding="utf-8")
-        )
-        language_audios = json.loads(
-            (ROOT / f"content/i18n/{language}/audios.json").read_text(encoding="utf-8")
-        )
-        assert language_texts[end_id] == "Mwisho wa ukurasa."
-        assert language_audios[end_id].split("?", 1)[0] == "page_end.mp3"
+    assert "Mwisho wa ukurasa." not in markup, item["href"]
 
 print(f"PASS: 150-section version {version} publication order, narrated covers, local assets, inclusive wording and key diagrams are valid.")

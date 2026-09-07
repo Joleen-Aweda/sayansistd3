@@ -80,15 +80,6 @@ def update_html() -> None:
             )
         html = html.replace("tableti au simumaizi", "tableti au kishikwambi")
 
-        end_id = f'{entry["section_id"]}_end'
-        end_markup = (
-            f'<span class="sr-only" data-id="{end_id}">Mwisho wa ukurasa.</span>'
-        )
-        if f'data-id="{end_id}"' not in html:
-            final_section = html.rfind("</section>")
-            if final_section < 0:
-                raise RuntimeError(f"No closing section in {path.name}")
-            html = html[:final_section] + end_markup + html[final_section:]
         path.write_text(html, encoding="utf-8")
 
     intro = ROOT / "pg099_sec001.html"
@@ -137,9 +128,6 @@ def update_html() -> None:
 
 def update_catalogs() -> None:
     pages = read_json(ROOT / "content/pages.json")
-    end_texts = {
-        f'{entry["section_id"]}_end': "Mwisho wa ukurasa." for entry in pages
-    }
     changed_ids = set(REPLACEMENTS) | set(NEW_TEXTS)
     for language in LANGUAGES:
         directory = ROOT / f"content/i18n/{language}"
@@ -152,9 +140,6 @@ def update_catalogs() -> None:
             audios[f"{text_id}_easy_read"] = (
                 f"{text_id}_easy_read.mp3?v={BUNDLE_VERSION}"
             )
-        texts.update(end_texts)
-        for text_id in end_texts:
-            audios[text_id] = f"page_end.mp3?v={BUNDLE_VERSION}"
 
         for text_id in (
             "pg002_n0012",
