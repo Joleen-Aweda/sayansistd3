@@ -93,8 +93,12 @@ def main() -> None:
     # mappings with content/i18n/{language}/video/, so sw-TZ can resolve the same
     # files through a relative locale path without duplicating large media.
     sw_mapping = {
-        f"video-{number + 1}": f"video-{number:03d}.mp4"
-        for number in sorted(expected)
+        "video-1": "video-front-cover.mp4",
+        **{
+            f"video-{number + 1}": f"video-{number:03d}.mp4"
+            for number in sorted(expected)
+        },
+        "video-150": "video-back-cover.mp4",
     }
     sw_tz_mapping = {
         key: f"../../sw/video/{filename}"

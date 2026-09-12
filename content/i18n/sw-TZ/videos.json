@@ -1,4 +1,5 @@
 {
+  "video-1": "../../sw/video/video-front-cover.mp4",
   "video-2": "../../sw/video/video-001.mp4",
   "video-3": "../../sw/video/video-002.mp4",
   "video-4": "../../sw/video/video-003.mp4",
@@ -146,5 +147,6 @@
   "video-146": "../../sw/video/video-145.mp4",
   "video-147": "../../sw/video/video-146.mp4",
   "video-148": "../../sw/video/video-147.mp4",
-  "video-149": "../../sw/video/video-148.mp4"
+  "video-149": "../../sw/video/video-148.mp4",
+  "video-150": "../../sw/video/video-back-cover.mp4"
 }

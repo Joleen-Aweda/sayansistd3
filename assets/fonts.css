@@ -191,3 +191,68 @@ body, p, h1, h2, h3, h4, h5, h6, span, div, button, input, textarea, select {
   #content :where(h3, h4, h5, h6)[class*='text-5xl'],
   #content :where(h3, h4, h5, h6)[class*='text-5xl'] [data-id] { font-size: 24px !important; }
 }
+
+
+/* Book-wide responsive safeguards for phones and tablets. */
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+#content,
+#content > *,
+#content :where(section, article, figure, .flex, .grid),
+#content :where(section, article, figure, .flex, .grid) > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+#content :where(img, svg, video, canvas, iframe) {
+  max-width: 100% !important;
+  height: auto;
+}
+
+#content :where(input, textarea, select, button) {
+  max-width: 100%;
+}
+
+#content table {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+body div.fixed:has(video) {
+  width: min(20rem, calc(100vw - 1rem)) !important;
+  max-width: calc(100vw - 1rem) !important;
+}
+
+body div.fixed:has(video) video {
+  width: 100%;
+  height: auto;
+  max-height: min(45vh, 22rem);
+  object-fit: contain;
+}
+
+@media (max-width: 640px) {
+  #content .whitespace-nowrap {
+    white-space: normal !important;
+  }
+
+  #content :where(.flex, .grid) {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 400px) {
+  #content { font-size: 18px; }
+  #content :where(p, li, td, th, label, figcaption, textarea, input, select, button),
+  #content :where(span, div)[data-id] { font-size: 18px !important; }
+  #content :where(h1, h2),
+  #content :where(h1, h2) [data-id] { font-size: 28px !important; }
+  #content :where(h3, h4, h5, h6),
+  #content :where(h3, h4, h5, h6) [data-id] { font-size: 22px !important; }
+}

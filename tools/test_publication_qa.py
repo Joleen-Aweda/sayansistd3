@@ -9,7 +9,7 @@ pages = json.loads((ROOT / "content/pages.json").read_text(encoding="utf-8"))
 texts = json.loads((ROOT / "content/i18n/sw/texts.json").read_text(encoding="utf-8"))
 
 version = json.loads((ROOT / "assets/config.json").read_text(encoding="utf-8"))["bundleVersion"]
-assert version == "196"
+assert version == "197"
 assert pages[0] == {"section_id": "cover_sec001", "href": "index.html"}
 assert pages[-1] == {"section_id": "back_cover_sec001", "href": "back-cover.html"}
 assert [item["page_number"] for item in pages if "page_number" in item] == list(range(1, 110)) + list(range(111, 150))
