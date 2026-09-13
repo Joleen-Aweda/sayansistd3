@@ -30,7 +30,7 @@ def probe(path: Path) -> dict:
 def main() -> None:
     config = json.loads((ROOT / "assets/config.json").read_text(encoding="utf-8"))
     assert config["features"]["signLanguage"] is True
-    assert config["bundleVersion"] == "197"
+    assert config["bundleVersion"] == "198"
 
     concurrent_script = ROOT / "assets/concurrent-sign-language-playback.js"
     assert concurrent_script.is_file()
@@ -41,7 +41,7 @@ def main() -> None:
             f"assets/concurrent-sign-language-playback.js?v={version}" in markup
         ), page["href"]
 
-    expected_keys = {f"video-{number}" for number in range(1, 151)}
+    expected_keys = {f"video-{number}" for number in range(1, 151)} - {"video-149"}
     mappings = {}
     for language in ("sw", "sw-TZ"):
         mapping = json.loads(
